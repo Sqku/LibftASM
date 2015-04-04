@@ -3,47 +3,62 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahua <ahua@student.42.fr>                  +#+  +:+       +#+         #
+#    By: ahua <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2015/01/23 15:33:03 by ahua              #+#    #+#              #
-#    Updated: 2015/04/02 21:44:44 by ahua             ###   ########.fr        #
+#    Created: 2015/04/03 21:40:14 by ahua              #+#    #+#              #
+#    Updated: 2015/04/03 21:40:18 by ahua             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fractol
-SRC = main.c \
-	  init.c \
-	  key_hook.c \
-	  color.c \
-	  loop_hook.c \
-	  julia.c \
-	  mandelbrot.c \
-	  douady.c
+STATIC_LIB 	= libfts.a
 
-	
-LIB	= libft/libft.a
+SRC = ft_bzero.s \
+	  ft_isalnum.s \
+	  ft_isalpha.s \
+	  ft_isascii.s \
+	  ft_isdigit.s \
+	  ft_isprint.s \
+	  ft_memcpy.s \
+	  ft_memcpy.s \
+	  ft_memset.s \
+	  ft_puts.s \
+	  ft_strcat.s \
+	  ft_strdup.s \
+	  ft_strlen.s \
+	  ft_tolower.s \
+	  ft_toupper.s
+	  #ft_cat.s #
 
-OBJ = $(SRC:.c=.o)
-CC = gcc
-FLAGS = -Wall -Wextra -Werror 
 
-all: $(NAME)
+STATIC_OBJ	= $(patsubst %.s,$(STATIC_DIR)/%.o,$(SRC))
 
-$(NAME): $(OBJ)
-	@make -C libft/ re
-	@$(CC) -o $(NAME) $(OBJ) $(FLAGS) -I. $(LIB) -I minilibx_macos -lmlx -framework OpenGL -framework AppKit -Os
+HEAD_DIR	= includes
+SRC_DIR		= src
+STATIC_DIR	= static
 
-%.o: %.c
-	@$(CC) -c -o $@ $(FLAGS) $^
+CC			= gcc
+NASM		= nasm -f macho64
 
-.PHONY : clean fclean re
+$(shell mkdir -p $(STATIC_DIR))
+
+all: $(STATIC_LIB)
+
+$(STATIC_LIB): $(STATIC_OBJ)
+	ar rc $@ $(STATIC_OBJ)
+	ranlib $@
+
+$(STATIC_DIR)/%.o: $(SRC_DIR)/%.s
+	$(NASM) -I $(HEAD_DIR) -o $@ $<
+
+.PHONY: clean fclean re norme
 
 clean:
-	@rm -f $(OBJ)
-	@make -C libft/ clean
+	@rm -f $(STATIC_OBJ)
 
 fclean: clean
-	@rm -f $(NAME)
-	@make -C libft/ fclean
+	@rm -f $(STATIC_LIB)
 
-re: fclean $(NAME)
+re: fclean
+	make
+
+reall: all
