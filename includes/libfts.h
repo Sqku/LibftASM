@@ -19,6 +19,15 @@ void				*ft_memset(void *b, int c, size_t len);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 char				*ft_strdup(const char *s1);
 
-//void				ft_cat(int fd);
+void				ft_cat(int fd);
+
+void				ft_putchar(char c);
+void				ft_putchar_fd(char c, int fd);
+void				ft_putstr(const char *s);
+void				ft_putstr_fd(const char *s, int fd);
+int					ft_puts_fd(const char *str, int fd);
+int					ft_isspace(int c);
+int					ft_isupper(int c);
+int					ft_islower(int c);
 
 #endif

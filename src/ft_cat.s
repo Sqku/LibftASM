@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    ft_cat.s                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ahua <marvin@42.fr>                        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2015/04/04 12:32:26 by ahua              #+#    #+#              #
+#    Updated: 2015/04/04 12:32:32 by ahua             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 %define M_SCALL(nb)			0x2000000 | nb
 %define STDOUT				1
 %define READ				3
@@ -18,7 +30,7 @@ _ft_cat:
 _cat:
 	push	rdi
 
-	mov		rsi, buff
+	lea		rsi, [rel buff]
 	mov		rdx, BUFF_SIZE
 	mov		rax, M_SCALL(READ)
 	syscall

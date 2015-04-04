@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ahua <marvin@42.fr>                        +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2015/04/03 21:40:14 by ahua              #+#    #+#              #
-#    Updated: 2015/04/03 21:40:18 by ahua             ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 STATIC_LIB 	= libfts.a
 
 SRC = ft_bzero.s \
@@ -26,8 +14,16 @@ SRC = ft_bzero.s \
 	  ft_strdup.s \
 	  ft_strlen.s \
 	  ft_tolower.s \
-	  ft_toupper.s
-	  #ft_cat.s #
+	  ft_toupper.s \
+	  ft_putchar.s \
+	  ft_putchar_fd.s \
+	  ft_putstr.s \
+	  ft_putstr_fd.s \
+	  ft_puts_fd.s \
+	  ft_isspace.s \
+	  ft_isupper.s \
+	  ft_islower.s \
+	  ft_cat.s
 
 
 STATIC_OBJ	= $(patsubst %.s,$(STATIC_DIR)/%.o,$(SRC))
